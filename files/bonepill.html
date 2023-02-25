@@ -63,39 +63,51 @@
       background-color: transparent;
       text-decoration: underline;
     }
+
+    input:focus{
+      background-color:#353535;
+      border: 1px solid #d4d4d4;
+      outline: none;
+    }
+    
+    input{
+      width: 120px;
+      background-color:#1e1e1e;
+      border: 1px solid #d4d4d4;
+      color: #d4d4d4;
+      right: 100%;
+      float: right
+    }
+
+</style>
       </style>
 
   <py-config>
     packages = ["matplotlib","scipy", "seaborn", 'numpy']
     [[fetch]]
-      files = [ 'tt.py', 'ansur_functions.py', 'ansur2_female.csv', 'ansur2_male.csv']
+      files = [ 'tt.py', 'ansur_functions.py', 'ansur2_female.csv', 'ansur2_male.csv', 'layer.py']
 </py-config>
 </head>
-
 
 
 
 <body>
 
   <py-script>
-    import tt
+
+    from pyodide import create_proxy
+    import layer                                 
+    x = 79
+    y = 15.5
+    mx = 'Height'
+    my = 'Hip Breadth'
     
-    genders_to_show = 'mf'                             
-    units = 'in'                                     
-    input_x = 75
-    input_y = 17.75
-    measurement_x = 'Height'
-    measurement_y = 'Bideltoid Shoulder Breadth'
-    
-    fig = tt.grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement_y)
-    fig.set_figheight(6) 
-    fig.set_figwidth(10.5)  
-    display(fig, target = "graph-area")
+    display(layer.layer(mx, my, x, y), target = "graph-area")
   </py-script>
 
   <div class="container">
     <h1>Anthropometric Measurements (Bonepill website)</h1>
-    <h3>New and improved Bonepill website! Now you can get bonepilled with a better UI, more features, and more! This website is a knockoff of <a href="https://sodadreama.github.io/ansur.html">this site</a> which is based on <a href="https://anthro.cs.uni-freiburg.de/#col">this site</a> but I made it look cooler and added the ability to see how many standar deviations you are from the normal, as well as the percentile conversion. It also supports both imperial (inches) and metric (centimeters).<br><br>
+    <h3>New and improved Bonepill website! Now you can get bonepilled with a better UI, new features, and more! This website is a knockoff of <a href="https://sodadreama.github.io/ansur.html">this site</a> which is based on <a href="https://anthro.cs.uni-freiburg.de/#col">this site</a> but I made it look cooler and added the ability to see how many standard deviations you are from the normal, as well as the percentile conversion. It also supports both imperial (inches) and metric (centimeters).<br><br>
     Essentially what the site does is graph the data from 1987 women and 4083 men onto two axes, each correpsonding to a measurement. Pink dots are women, blue dots are men, and the bands represent +- 1 standard deviation for each gender. Your measurements are the red dot, have fun.<br><br>
 
 
@@ -103,7 +115,13 @@
     <div class="row">
       <div class="column left">
         <h2>Input measurements</h2>
-        <p>I dont know how to make fucking javascript buttons tthat can be used as pyscript inputs <br>Measurement<br>Measurement<br>Measurement<br>Measurement<br>Measurement<br>Measurement<br></p>
+        <p>I dont know how to make fucking javascript buttons tthat can be used as pyscript inputs <br><br>
+
+          Measurement X:<input id = “test_input”></input></p>
+          Measurement Y:<input id = “test_input”></input></p>
+          Input X <input id = “test_input”></input></p>
+          Input Y <input id = “test_input”></input></p>
+          <br>
       </div>
       <div class="column right">
         <div id="graph-area"></div>
@@ -112,7 +130,10 @@
   </div>
 
 
-
+w 28 - 28
+h 42.5 - 28
+bidel 17 -18
+hip b 15.5 - 14.5
 
 </body>
   
