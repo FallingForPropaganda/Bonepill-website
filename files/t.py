@@ -13,12 +13,12 @@ import ansur_functions as funcs
 import scipy.stats as st
 
 #input variables
-genders_to_show = 'f'                             
+genders_to_show = 'mf'                             
 units = 'in'                                     
 input_x = 71
-input_y = 17
+input_y = 14.5
 measurement_x = 'Height'
-measurement_y = 'Bideltoid Shoulder Breadth'
+measurement_y = 'Hip Breadth'
 
 #finds the csv value for each display title
 measurement1 = funcs.linker(measurement_x)             
