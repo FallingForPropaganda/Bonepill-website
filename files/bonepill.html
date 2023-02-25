@@ -71,12 +71,27 @@
     }
     
     input{
-      width: 120px;
+      width: 300px;
       background-color:#1e1e1e;
       border: 1px solid #d4d4d4;
       color: #d4d4d4;
       right: 100%;
+      float: right;
+      padding: 2px 2px;
+      font-size: 15px
+    }
+
+    button{
+      width: 300px;
+      background-color:#1e1e1e;
+      border: 1px solid #d4d4d4;
+      color: #d4d4d4;
       float: right
+    }
+    button:focus, button:hover{
+      background-color:#353535;
+      border: 1px solid #d4d4d4;
+      outline: none;
     }
 
 </style>
@@ -87,6 +102,13 @@
     [[fetch]]
       files = [ 'tt.py', 'ansur_functions.py', 'ansur2_female.csv', 'ansur2_male.csv', 'layer.py']
 </py-config>
+
+<script>
+  function clearcontent(elementID) {
+      document.getElementById(elementID).innerHTML = "";
+  }
+</script>
+
 </head>
 
 
@@ -96,14 +118,33 @@
   <py-script>
 
     from pyodide import create_proxy
+    from js import console
     import layer                                 
-    x = 18
+
+    x= 75
     y = 14.5
-    mx = 'Bideltoid Shoulder Breadth'
-    my = 'Hip Breadth'
-    
-    display(layer.layer(mx, my, x, y), target = "graph-area")
+    mx = 'Height'
+    my = 'Bideltoid Shoulder Breadth'
+    g = 'mf'
+    u = 'in'
+    display(layer.layer(mx, my, x, y, g, u), target = "graph-area", append=False)
+
+    def dis():
+      x = float(Element('ix').element.value)
+      y = float(Element('iy').element.value)
+      mx = str(Element('mx').element.value)
+      my = str(Element('my').element.value)
+      g = str(Element('gender').element.value)
+      if len(g) == 0:
+        g='mf'
+      u = str(Element('units').element.value)
+      if len(u) == 0:
+        u = 'in'
+
+      display(layer.layer(mx, my, x, y, g, u), target = "graph-area")
   </py-script>
+
+
 
   <div class="container">
     <h1>Anthropometric Measurements (Bonepill website)</h1>
@@ -115,12 +156,15 @@
     <div class="row">
       <div class="column left">
         <h2>Input measurements</h2>
-        <p>I dont know how to make fucking javascript buttons tthat can be used as pyscript inputs <br><br>
+        <p>I dont know how to make fucking javascript buttons tthat can be used as pyscript inputs, it works but only barely<br><br>
 
-          Measurement X:<input id = “test_input”></input></p>
-          Measurement Y:<input id = “test_input”></input></p>
-          Input X <input id = “test_input”></input></p>
-          Input Y <input id = “test_input”></input></p>
+          <input type="text" id="mx"placeholder="Measurement on X axis"></input><br><br>
+          <input type="text" id="my"placeholder="Measurement on Y axis"></input><br><br>
+          <input type="text" id="ix" placeholder="X value"></input><br><br>
+          <input type="text" id="iy" placeholder="Y value"></input><br><br>
+          <input type="text" id="gender" placeholder="Genders to Show (m/f/mf)"></input><br><br>
+          <input type="text" id="units" placeholder="Units (in/cm)"></input><br><br>
+          <button id="test" type="button" onclick = "clearcontent('graph-area')" py-onClick="dis()">Graph</button>
           <br>
       </div>
       <div class="column right">

@@ -303,7 +303,6 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
             #replaces the old data with the unit converted data
             data[measurement] = new_measurement
 
-
     #adds female data to the list if 'f' is in the gender list 
     data = {'gender' : [], measurement1: [],measurement2: []}
     if 'f' in genders_to_show:
