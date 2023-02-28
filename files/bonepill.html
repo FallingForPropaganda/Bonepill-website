@@ -88,7 +88,7 @@
       color: #d4d4d4;
       float: right
     }
-    button:focus, button:hover{
+    button:hover{
       background-color:#353535;
       border: 1px solid #d4d4d4;
       outline: none;
@@ -120,6 +120,8 @@
     from pyodide import create_proxy
     from js import console
     import layer                                 
+    import matplotlib as plt
+    plt.rcParams.update({'figure.max_open_warning': 0})
 
     x= 0
     y = 0
@@ -140,6 +142,10 @@
       u = str(Element('units').element.value)
       if len(u) == 0:
         u = 'in'
+      mx = mx.lower()
+      my = my.lower()
+      g = g.lower()
+      u = u.lower()
 
       display(layer.layer(mx, my, x, y, g, u), target = "graph-area")
   </py-script>
@@ -149,22 +155,121 @@
   <div class="container">
     <h1>Anthropometric Measurements (Bonepill website)</h1>
     <h3>New and improved Bonepill website! Now you can get bonepilled with a better UI, new features, and more! This website is a knockoff of <a href="https://sodadreama.github.io/ansur.html">this site</a> which is based on <a href="https://anthro.cs.uni-freiburg.de/#col">this site</a> but I made it look cooler and added the ability to see how many standard deviations you are from the normal, as well as the percentile conversion. It also supports both imperial (inches) and metric (centimeters).<br><br>
-    Essentially what the site does is graph the data from 1987 women and 4083 men onto two axes, each correpsonding to a measurement. Pink dots are women, blue dots are men, and the bands represent +- 1 standard deviation for each gender. Your measurements are the red dot, have fun.<br><br>
+    
+    Intructions: Enter the two measurements you would like to compare, then enter your values for those two measurements. Essentially what the site does is graph the data from 1987 women and 4083 men onto two axes, each correpsonding to a measurement. Pink dots are women, blue dots are men, and the bands represent +- 1 standard deviation for each gender. There is a drop down menu for the measurements that autocompletes as you type. Below, you can enter your value for the measurement on the x axis and your value for the measurement on the y axis. For the "Genders to show" option, you can either leave it blank (which defaults to showing for male and female) or type "m" to show just male, "f" to show just female, of "mf" to show both male and female datapoints. For units, you can enter either "in" for inches or "cm" for centimeters. If you leave it blank it defaults to inches.<br><br>
+  
 
 
       </h3>
     <div class="row">
       <div class="column left">
         <h2>Input measurements</h2>
-        <p>I dont know how to make fucking javascript buttons tthat can be used as pyscript inputs, it works but only barely<br><br>
+        <p>Make sure you have the spelling right, if you mispell something the chart won't show. <br><br>TIP: Always click on the drop down of the measurement you want to use, that way you can guarantee that it is spelled right.<br><br>
 
-          <input type="text" id="mx"placeholder="Measurement on X axis"></input><br><br>
-          <input type="text" id="my"placeholder="Measurement on Y axis"></input><br><br>
+          <datalist id="bonepillmeasurements"> 
+            <option value="Abdominal Extension Depth Sitting">
+            <option value="Acromial Height">
+            <option value="Acromion Radiale Length">
+            <option value="Ankle Circumference">
+            <option value="Axilla Height">
+            <option value="Ball of Foot Circumference">
+            <option value="Ball of Foot Length">
+            <option value="Biacromial Shoulder Breadth">
+            <option value="Biceps Circumference, Flexed">
+            <option value="Bicristal Hip Breadth">
+            <option value="Bideltoid Shoulder Breadth">
+            <option value="Bimalleolar Ankle Breadth">
+            <option value="Bitragion Chin Arc">
+            <option value="Bitragion Submandibular Arc">
+            <option value="Bizygomatic Breadth">
+            <option value="Buttocks Circumference">
+            <option value="Buttocks Depth">
+            <option value="Buttocks Height">
+            <option value="Buttocks Knee Length">
+            <option value="Buttocks Popliteal Length">
+            <option value="Calf Circumference">
+            <option value="Cervicale Height">
+            <option value="Chest Breadth">
+            <option value="Chest Circumference">
+            <option value="Chest Depth">
+            <option value="Chest Height">
+            <option value="Crotch Height">
+            <option value="Crotch Length Omphalion">
+            <option value="Crotch Length Posterior Omphalion">
+            <option value="Ear Breadth">
+            <option value="Ear Length">
+            <option value="Ear Protrusion">
+            <option value="Elbo Wrest Height">
+            <option value="Eye Height Sitting">
+            <option value="Foot Breadth Horizontal">
+            <option value="Foot Length">
+            <option value="Forearm Center of Grip Length">
+            <option value="Forearm Circumference Flexed">
+            <option value="Forearm-Forearm Breadth">
+            <option value="Forearm Hand Length">
+            <option value="Functional Leg Length">
+            <option value="Hand Breadth">
+            <option value="Hand Circumference">
+            <option value="Hand Length">
+            <option value="Head Breadth">
+            <option value="Head Circumference">
+            <option value="Head Length">
+            <option value="Heel Ankle Circumference">
+            <option value="Heel Breadth">
+            <option value="Hip Breadth">
+            <option value="Hip Breadth Sitting">
+            <option value="Iliocristale Height">
+            <option value="Interpupillary Breadth">
+            <option value="Interscye 1">
+            <option value="Interscye 2">
+            <option value="Knee Height Mid Patella">
+            <option value="Knee Height Sitting">
+            <option value="Lateral Femoral Epicondyle Height">
+            <option value="Lateral Malleolus Height">
+            <option value="Lower Thigh Circumference">
+            <option value="Menton Sellion Length">
+            <option value="Neck Circumference">
+            <option value="Neck Circumference Base">
+            <option value="Overhead Fingertip Reach Sitting">
+            <option value="Palm Length">
+            <option value="Popliteal Height">
+            <option value="Radiale Stylion Length">
+            <option value="Shoulder Circumference">
+            <option value="Shoulder Elbow Length">
+            <option value="Shoulder Length">
+            <option value="Sitting Height">
+            <option value="Sleeve Length Spine Wrist">
+            <option value="Sleeve Outseam">
+            <option value="Wingspan">
+            <option value="Height">
+            <option value="Suprasternale Height">
+            <option value="Tenth Rib Height">
+            <option value="Thigh Circumference">
+            <option value="Thigh Clearance">
+            <option value="Thumbtip Reach">
+            <option value="Tibial Height">
+            <option value="Tragion Top of Head">
+            <option value="Trochanterion Height">
+            <option value="Vertical Trunk Circumference">
+            <option value="Waist Backlength">
+            <option value="Waist Breadth">
+            <option value="Waist Circumference">
+            <option value="Waist Depth">
+            <option value="Waist Front Length Sitting">
+            <option value="Waist Height Omphalion">
+            <option value="Weight (kg)">
+            <option value="Wrist Circumference">
+            <option value="Wrist Height">
+            <option value="Weight (lbs)">
+          </datalist>
+
+          <input list="bonepillmeasurements" type="text" id="mx"placeholder="Measurement on X axis"></input><br><br>
+          <input list="bonepillmeasurements" type="text" id="my"placeholder="Measurement on Y axis"></input><br><br>
           <input type="text" id="ix" placeholder="X value"></input><br><br>
           <input type="text" id="iy" placeholder="Y value"></input><br><br>
           <input type="text" id="gender" placeholder="Genders to Show (m/f/mf)"></input><br><br>
           <input type="text" id="units" placeholder="Units (in/cm)"></input><br><br>
-          <button id="test" type="button" onclick = "clearcontent('graph-area')" py-onClick="dis()">Graph</button>
+          <button id="test" type="button" onclick = "clearcontent('graph-area')" py-onClick="dis()">Click to Graph</button>
           <br>
       </div>
       <div class="column right">
@@ -174,6 +279,9 @@
   </div>
 
 
+<!-- 
+targets (starting - goal):
+
 waist 28 - 28
 
 hip circ 42.5 - 38
@@ -182,7 +290,7 @@ hip breadth 15.5 - 14.5
 shoulder circ 41.5 - 43
 bideltoid shoulder 17 - 18
 
-underbust 32 - 32.5
+underbust 32 - 32.5-->
 
 
 </body>
