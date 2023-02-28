@@ -273,7 +273,7 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
         'wrist circumference': 'wristcircumference',
         'wrist height': 'wristheight',
         'weight (lbs)': 'weightlbs'
-    }
+        }
 
         return links[measurement]
 
@@ -441,3 +441,4 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
     fig.set_figheight(6) 
     fig.set_figwidth(10)  
     return fig
+
