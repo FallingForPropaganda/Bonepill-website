@@ -211,7 +211,7 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
         'ear breadth': 'earbreadth',
         'ear length': 'earlength',
         'ear protrusion': 'earprotrusion',
-        'elbo wrest height': 'elbowrestheight',
+        'elbow rest height': 'elbowrestheight',
         'eye height sitting': 'eyeheightsitting',
         'foot breadth horizontal': 'footbreadthhorizontal',
         'foot length': 'footlength',
@@ -322,15 +322,26 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
 
     #questionable coding but it works and took me like 2 minutes to write, it find the max and min x and y values
     #then it adds 2.5%  of the difference to the top and bottom, it's used to lock the x and y limits for the axes
-    max_y = max(data[measurement2])
-    min_y = min(data[measurement2])
+    d0 = {'gender' : [], measurement1: [],measurement2: []}
+
+    d0['gender'] += dataf['gender']
+    d0[measurement1] += dataf[measurement1]
+    d0[measurement2] += dataf[measurement2]
+
+    d0['gender'] += datam['gender']
+    d0[measurement1] += datam[measurement1]
+    d0[measurement2] += datam[measurement2]
+
+    
+    max_y = max(d0[measurement2])
+    min_y = min(d0[measurement2])
     y_dif = max_y - min_y
 
     max_y = max_y + y_dif/40
     min_y = min_y - y_dif/40
 
-    max_x = max(data[measurement1])
-    min_x = min(data[measurement1])
+    max_x = max(d0[measurement1])
+    min_x = min(d0[measurement1])
     x_dif = max_x - min_x
 
     max_x = max_x + x_dif/40
@@ -439,6 +450,7 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
     plt.show()
 
     fig.set_figheight(6) 
-    fig.set_figwidth(10)  
+    fig.set_figwidth(10) 
+
     return fig
 

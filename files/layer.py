@@ -6,5 +6,6 @@ def layer(mx, my, x, y, g, u):
       fig = tt.grapher(g, u, x, y, mx, my)
       fig.set_figheight(6) 
       fig.set_figwidth(10.5)  
-      #print('test')
       return fig
+
+      #python -m http.server 8000

@@ -24,9 +24,28 @@
       text-align: center;
     }
 
+    h2 {
+      text-align: center;
+      font-size: 20px
+    }
+
     h3 {
       text-align: justify;
       font-size: 15px
+    }
+
+    table{
+      text-align: center;
+    }
+
+    th {
+      text-decoration: underline;
+      font-size: 20px;
+      width: 320px;
+    }
+
+    td {
+      font-size: 13px
     }
 
     * {
@@ -34,7 +53,7 @@
     }
     .column {
       float: left;
-      padding: 10px;
+      padding: 12px;
     }
 
     .left {
@@ -56,6 +75,7 @@
       color: #aaaaaa;
       background-color: transparent;
       text-decoration: none;
+      text-decoration: underline;
     }
 
     a:hover, a:active {
@@ -156,15 +176,17 @@
     <h1>Anthropometric Measurements (Bonepill website)</h1>
     <h3>New and improved Bonepill website! Now you can get bonepilled with a better UI, new features, and more! This website is a knockoff of <a href="https://sodadreama.github.io/ansur.html">this site</a> which is based on <a href="https://anthro.cs.uni-freiburg.de/#col">this site</a> but I made it look cooler and added the ability to see how many standard deviations you are from the normal, as well as the percentile conversion. It also supports both imperial (inches) and metric (centimeters).<br><br>
     
-    Intructions: Enter the two measurements you would like to compare, then enter your values for those two measurements. Essentially what the site does is graph the data from 1987 women and 4083 men onto two axes, each correpsonding to a measurement. Pink dots are women, blue dots are men, and the bands represent +- 1 standard deviation for each gender. There is a drop down menu for the measurements that autocompletes as you type. Below, you can enter your value for the measurement on the x axis and your value for the measurement on the y axis. For the "Genders to show" option, you can either leave it blank (which defaults to showing for male and female) or type "m" to show just male, "f" to show just female, of "mf" to show both male and female datapoints. For units, you can enter either "in" for inches or "cm" for centimeters. If you leave it blank it defaults to inches.<br><br>
+    Intructions: Enter the two measurements you would like to compare, then enter your values for those two measurements. What the site does is graph the data from 1987 women and 4083 men onto two axes, each correpsonding to a measurement. Pink dots are women, blue dots are men, and the bands represent +- 1 standard deviation for each gender. There is a drop down menu for the measurements that autocompletes as you type. Below, you can enter your value for the measurement on the x axis and your value for the measurement on the y axis. For the "Genders to show" option, you can either leave it blank (which defaults to showing for male and female) or type "m" to show just male, "f" to show just female, of "mf" to show both male and female datapoints. For units, you can enter either "in" for inches or "cm" for centimeters. If you leave it blank it defaults to inches.<br><br>
   
 
 
       </h3>
     <div class="row">
+
+      
       <div class="column left">
         <h2>Input measurements</h2>
-        <p>Make sure you have the spelling right, if you mispell something the chart won't show. <br><br>TIP: Always click on the drop down of the measurement you want to use, that way you can guarantee that it is spelled right.<br><br>
+        <p>Make sure you have the spelling right, if you mispell something the chart won't show. Scroll down to see the full list of measurements.<br><br>TIP: Always click on the drop down of the measurement you want to use, that way you can guarantee that it is spelled right.<br><br>
 
           <datalist id="bonepillmeasurements"> 
             <option value="Abdominal Extension Depth Sitting">
@@ -199,7 +221,7 @@
             <option value="Ear Breadth">
             <option value="Ear Length">
             <option value="Ear Protrusion">
-            <option value="Elbo Wrest Height">
+            <option value="Elbow Rest Height">
             <option value="Eye Height Sitting">
             <option value="Foot Breadth Horizontal">
             <option value="Foot Length">
@@ -250,17 +272,15 @@
             <option value="Tibial Height">
             <option value="Tragion Top of Head">
             <option value="Trochanterion Height">
-            <option value="Vertical Trunk Circumference">
             <option value="Waist Backlength">
             <option value="Waist Breadth">
             <option value="Waist Circumference">
             <option value="Waist Depth">
             <option value="Waist Front Length Sitting">
             <option value="Waist Height Omphalion">
-            <option value="Weight (kg)">
             <option value="Wrist Circumference">
             <option value="Wrist Height">
-            <option value="Weight (lbs)">
+            <option value="Weight (kg)"></option>
           </datalist>
 
           <input list="bonepillmeasurements" type="text" id="mx"placeholder="Measurement on X axis"></input><br><br>
@@ -276,21 +296,227 @@
         <div id="graph-area"></div>
       </div>
     </div>
+    <h2>
+      
+      <br><br><br><br>
+      <h1>
+      Full Measurement List
+      </h1>
+
+      <table class="table table-bordered table-hover table-condensed">
+        <thead><tr>
+        <th title="Field #1">Full Body Measurements</th>
+        <th title="Field #2">Chest/Back Measurements</th>
+        <th title="Field #3">Hip Measurements</th>
+        <th title="Field #4">Hand/Wrist Measurements</th>
+        </tr></thead>
+        <tbody><tr>
+        <td>Height</td>
+        <td>Chest Breadth</td>
+        <td>Buttocks Circumference</td>
+        <td>Wrist Circumference</td>
+        </tr>
+        <tr>
+        <td>Wingspan</td>
+        <td>Chest Circumference</td>
+        <td>Buttocks Depth</td>
+        <td>Wrist Height</td>
+        </tr>
+        <tr>
+        <td>Weight (kg)</td>
+        <td>Chest Depth</td>
+        <td>Buttocks Height</td>
+        <td>Hand Breadth</td>
+        </tr>
+        <tr>
+        <td>Sitting Height</td>
+        <td>Chest Height</td>
+        <td>Hip Breadth</td>
+        <td>Hand Circumference</td>
+        </tr>
+        <tr>
+        <td>Thumbtip Reach</td>
+        <td>Interscye 1</td>
+        <td>Hip Breadth Sitting</td>
+        <td>Hand Length</td>
+        </tr>
+        <tr>
+        <td>Overhead Fingertip Reach Sitting</td>
+        <td>Interscye 2</td>
+        <td>Bicristal Hip Breadth</td>
+        <td>Palm Length</td>
+        </tr>
+        </tbody></table>
+
+        <br><br>
+
+      <table class="table table-bordered table-hover table-condensed">
+        <thead><tr><th title="Field #1">Waist measurements</th>
+        <th title="Field #2">Shoulder Measurements</th>
+        <th title="Field #3">Arm Measurements</th>
+        <th title="Field #4">Leg Measurements</th>
+        </tr></thead>
+        <tbody><tr>
+        <td>Waist Breadth</td>
+        <td>Biacromial Shoulder Breadth</td>
+        <td>Biceps Circumference, Flexed</td>
+        <td>Calf Circumference</td>
+        </tr>
+        <tr>
+        <td>Waist Circumference</td>
+        <td>Bideltoid Shoulder Breadth</td>
+        <td>Forearm Circumference Flexed</td>
+        <td>Thigh Circumference</td>
+        </tr>
+        <tr>
+        <td>Waist Depth</td>
+        <td>Shoulder Circumference</td>
+        <td>Forearm-Forearm Breadth</td>
+        <td>Lower Thigh Circumference</td>
+        </tr>
+        <tr>
+        <td>Abdominal Extension Depth Sitting</td>
+        <td>Shoulder Length</td>
+        <td> </td>
+        <td>Functional Leg Length</td>
+        </tr>
+        </tbody></table>
+
+        <br><br>
+
+      <table class="table table-bordered table-hover table-condensed">
+        <thead><tr><th title="Field #1">Head/Neck Measurements</th>
+        <th title="Field #2">Foot/Ankle Measurements</th>
+        <th title="Field #3">Landmark Heights</th>
+        <th title="Field #4">Proportion Lengths</th>
+        </tr></thead>
+        <tbody><tr>
+        <td>Head Breadth</td>
+        <td>Ankle Circumference</td>
+        <td>Acromial Height</td>
+        <td>Acromion Radiale Length</td>
+        </tr>
+        <tr>
+        <td>Head Circumference</td>
+        <td>Bimalleolar Ankle Breadth</td>
+        <td>Axilla Height</td>
+        <td>Buttocks Knee Length</td>
+        </tr>
+        <tr>
+        <td>Head Length</td>
+        <td>Ball of Foot Circumference</td>
+        <td>Cervicale Height</td>
+        <td>Buttocks Popliteal Length</td>
+        </tr>
+        <tr>
+        <td>Bizygomatic Breadth</td>
+        <td>Ball of Foot Length</td>
+        <td>Crotch Height</td>
+        <td>Crotch Length Omphalion</td>
+        </tr>
+        <tr>
+        <td>Neck Circumference</td>
+        <td>Foot Breadth Horizontal</td>
+        <td>Elbow Rest Height</td>
+        <td>Crotch Length Posterior Omphalion</td>
+        </tr>
+        <tr>
+        <td>Neck Circumference Base</td>
+        <td>Foot Length</td>
+        <td>Eye Height Sitting</td>
+        <td>Forearm Center of Grip Length</td>
+        </tr>
+        <tr>
+        <td>Bitragion Chin Arc</td>
+        <td>Heel Ankle Circumference</td>
+        <td>Iliocristale Height</td>
+        <td>Forearm Hand Length</td>
+        </tr>
+        <tr>
+        <td>Bitragion Submandibular Arc</td>
+        <td>Heel Breadth</td>
+        <td>Knee Height Mid Patella</td>
+        <td>Menton Sellion Length</td>
+        </tr>
+        <tr>
+        <td>Tragion Top of Head</td>
+        <td> </td>
+        <td>Knee Height Sitting</td>
+        <td>Radiale Stylion Length</td>
+        </tr>
+        <tr>
+        <td>Ear Breadth</td>
+        <td> </td>
+        <td>Lateral Femoral Epicondyle Height</td>
+        <td>Shoulder Elbow Length</td>
+        </tr>
+        <tr>
+        <td>Ear Length</td>
+        <td> </td>
+        <td>Lateral Malleolus Height</td>
+        <td>Sleeve Length Spine Wrist</td>
+        </tr>
+        <tr>
+        <td>Ear Protrusion</td>
+        <td> </td>
+        <td>Popliteal Height</td>
+        <td>Sleeve Outseam</td>
+        </tr>
+        <tr>
+        <td>Interpupillary Breadth</td>
+        <td> </td>
+        <td>Suprasternale Height</td>
+        <td>Waist Backlength</td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td> </td>
+        <td>Tenth Rib Height</td>
+        <td>Waist Front Length Sitting</td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td> </td>
+        <td>Thigh Clearance</td>
+        <td> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td> </td>
+        <td>Tibial Height</td>
+        <td> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td> </td>
+        <td>Trochanterion Height</td>
+        <td> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td> </td>
+        <td>Waist Height Omphalion</td>
+        <td> </td>
+        </tr>
+        </tbody></table>
+
+    </h2>
   </div>
 
 
 <!-- 
-targets (starting - goal):
+targets (start - goal):
 
 waist 28 - 28
 
-hip circ 42.5 - 38
-hip breadth 15.5 - 14.5
+hip circ 38 - 42.5
+hip breadth 14.5 - 15.5
 
-shoulder circ 41.5 - 43
-bideltoid shoulder 17 - 18
+shoulder circ 43 - 41.5
+bideltoid shoulder 18 - 17
 
-underbust 32 - 32.5-->
+underbust 32.5 - 32
+-->
 
 
 </body>

@@ -97,4 +97,4 @@ links = {
 
 
 for key in links:
-    print(f'<option value="{key}">')
+    print(f'{key}')
