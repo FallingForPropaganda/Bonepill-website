@@ -263,7 +263,7 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
         'tragion top of head': 'tragiontopofhead',
         'trochanterion height': 'trochanterionheight',
         'vertical trunk circumference': 'verticaltrunkcircumferenceusa',
-        'waist backlength': 'waistbacklength',
+        'waist back length': 'waistbacklength',
         'waist breadth': 'waistbreadth',
         'waist circumference': 'waistcircumference',
         'waist depth': 'waistdepth',

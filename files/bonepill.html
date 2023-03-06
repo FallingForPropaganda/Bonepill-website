@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
+<!-- 
+I fucking suck at making websites so everything here is hanging together with duck tape and nails, this is the first time I've done anything in html since high school
 
+I legit only know how half of this works
+
+If you wonder why I did something one way instead of the other it's probably because I don't know how to do it properly
+
+Anyway stop looking at my shitty code
+-->
 <head>
   <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
   <script defer src="https://pyscript.net/latest/pyscript.js"></script>
@@ -39,7 +47,6 @@
     }
 
     th {
-      text-decoration: underline;
       font-size: 20px;
       width: 320px;
     }
@@ -152,16 +159,27 @@
     display(layer.layer(mx, my, x, y, g, u), target = "graph-area", append=False)
 
     def dis():
-      x = float(Element('ix').element.value)
-      y = float(Element('iy').element.value)
+      x = Element('ix').element.value
+      if len(x) == 0:
+        x=float(0)
+      x = float(x)
+      
+      y = Element('iy').element.value
+      if len(y) == 0:
+        y=float(0)
+      y = float(y)
+
       mx = str(Element('mx').element.value)
       my = str(Element('my').element.value)
+
       g = str(Element('gender').element.value)
       if len(g) == 0:
         g='mf'
+
       u = str(Element('units').element.value)
       if len(u) == 0:
         u = 'in'
+
       mx = mx.lower()
       my = my.lower()
       g = g.lower()
@@ -272,7 +290,7 @@
             <option value="Tibial Height">
             <option value="Tragion Top of Head">
             <option value="Trochanterion Height">
-            <option value="Waist Backlength">
+            <option value="Waist Back Length">
             <option value="Waist Breadth">
             <option value="Waist Circumference">
             <option value="Waist Depth">
@@ -302,6 +320,9 @@
       <h1>
       Full Measurement List
       </h1>
+      <h2>
+        <a href="http://tools.openlab.psu.edu/publicData/ANSURII-TR15-007.pdf">Click for the ANSUR 2 servey info (you can find measurement intructions and info here)</a>
+      </h2>
 
       <table class="table table-bordered table-hover table-condensed">
         <thead><tr>
@@ -466,7 +487,7 @@
         <td>Interpupillary Breadth</td>
         <td> </td>
         <td>Suprasternale Height</td>
-        <td>Waist Backlength</td>
+        <td>Waist Back Length</td>
         </tr>
         <tr>
         <td> </td>
