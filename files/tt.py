@@ -278,8 +278,8 @@ def grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement
         return links[measurement]
 
     #finds the csv value for each display title
-    measurement1 = linker(measurement_x)             
-    measurement2 = linker(measurement_y)                    
+    measurement1 = linker(measurement_x.lower())             
+    measurement2 = linker(measurement_y.lower())                    
 
     #generates a dictionary in the format {gender, measurement 1, measurement 2}, then turns it into a pandas dataframe
     #also has the option to do one or both genders

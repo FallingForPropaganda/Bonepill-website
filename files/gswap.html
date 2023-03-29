@@ -1,0 +1,381 @@
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <meta charset="UTF-8">
+    <title>Bonepill</title>
+    <style>
+      body {
+        background-color:#1e1e1e;
+        font-family: "Courier New", Courier, monospace;
+        color: #d4d4d4
+      }
+      
+      .container {
+        background-color:#1e1e1e;
+        width: 1280px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      
+      h1 {
+        text-align: center;
+      }
+  
+      h2 {
+        text-align: center;
+        font-size: 20px
+      }
+  
+      h3 {
+        text-align: justify;
+        font-size: 15px
+      }
+  
+      table{
+        text-align: center;
+        border-spacing: 25px;
+      }
+  
+      th {
+        font-size: 20px;
+        width: 320px;
+        padding-top: 78px;
+        padding-bottom: 10px;
+        
+      }
+  
+      td {
+        font-size: 15px;
+        border: 1px solid #d4d4d4;
+        padding: 2px;
+      }
+  
+      * {
+        box-sizing: border-box;
+      }
+      .column {
+        float: left;
+        padding: 12px;
+      }
+  
+      .left {
+        width: 50%;
+      }
+  
+      .right {
+        width: 50%;
+      }
+  
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+  
+      a:link, a:visited {
+        color: #aaaaaa;
+        background-color: transparent;
+        text-decoration: none;
+        text-decoration: underline;
+      }
+  
+      a:hover, a:active {
+        color: #838383;
+        background-color: transparent;
+        text-decoration: underline;
+      }
+  
+      input:focus{
+        background-color:#353535;
+        border: 1px solid #d4d4d4;
+        outline: none;
+      }
+      
+      input{
+        width: 617px;
+        background-color:#1e1e1e;
+        border: 1px solid #d4d4d4;
+        color: #d4d4d4;
+        right: 100%;
+        float: left;
+        padding: 2px 2px;
+        font-size: 15px
+      }
+
+      .small1 input{
+        width: 190px;
+        background-color:#1e1e1e;
+        border: 1px solid #d4d4d4;
+        color: #d4d4d4;
+        right: 100%;
+        float: left;
+        padding: 2px 2px;
+        font-size: 15px;
+
+      }
+
+      .small2 input{
+        width: 190px;
+        background-color:#1e1e1e;
+        border: 1px solid #d4d4d4;
+        color: #d4d4d4;
+        right: 100%;
+        float: right;
+        padding: 2px 2px;
+        font-size: 15px;
+
+      }
+
+      .small3 input{
+        width: 190px;
+        background-color:#1e1e1e;
+        border: 1px solid #d4d4d4;
+        color: #d4d4d4;
+        right: 100%;
+        float: right;
+        padding: 2px 2px;
+        font-size: 15px;
+        margin-right: 22px;
+
+      }
+  
+      button{
+        width: 617px;
+        background-color:#1e1e1e;
+        border: 1px solid #d4d4d4;
+        color: #d4d4d4;
+        float: right
+      }
+      button:hover{
+        background-color:#353535;
+        border: 1px solid #d4d4d4;
+        outline: none;
+      }
+
+  
+  </style>
+        </style>
+  
+    <py-config>
+      packages = ["matplotlib","scipy", "seaborn", 'numpy']
+      [[fetch]]
+        files = [ 'tt.py', 'ansur_functions.py', 'ansur2_female.csv', 'ansur2_male.csv', 'ansur1_female.csv', 'ansur1_male.csv', 'layer.py']
+  </py-config>
+  
+  <script>
+    function clearcontent(elementID) {
+        document.getElementById(elementID).innerHTML = "";
+    }
+  </script>
+  
+  </head>
+  
+  
+  
+  <body>
+  
+    <py-script>
+    def dis():
+        import ansur_functions as funcs
+        units = str(Element('unitsincm').element.value)
+        version = str(Element('version12').element.value)
+        gender = str(Element('AGAB').element.value)
+        if units == "cm":
+            multiplier = 10
+        else:
+            multiplier = 25.4
+
+        bideltoid = float(Element('bideltoid').element.value)*multiplier
+        hipB = float(Element('hipB').element.value)*multiplier
+        waistC = float(Element('waistC').element.value)*multiplier
+        hipC = float(Element('hipC').element.value)*multiplier
+        chestC = float(Element('chestC').element.value)*multiplier
+        height = float(Element('height').element.value)
+        
+        #selects which version to use based user input
+        if version == "1":
+            bidel = "BIDELTOID_BRTH"
+            hipbreadth = "HIP_BRTH"
+            waist = "WAIST_CIRC_NATURAL"
+            hipcirc = "BUTTOCK_CIRC"
+            height_v = "STATURE"
+            chest = "CHEST_CIRC"
+            height *= multiplier
+        elif version == '2':
+            bidel = "bideltoidbreadth"
+            hipbreadth = "hipbreadth"
+            waist = "waistcircumference"
+            hipcirc = "buttockcircumference"
+            height_v = "Heightin"
+            chest = "chestcircumference"
+            if units == "cm":
+                height /= 2.54
+        
+        if version == "1":
+            dataset_f = "ansur1_female.csv"
+            dataset_m = "ansur1_male.csv"
+        elif version == '2':
+            dataset_f = "ansur2_female.csv"
+            dataset_m = "ansur2_male.csv"
+        
+        
+        #I KNOW THIS SUCKS BUT IT WOULD TAKE ME MORE TIME TO MAKE IT GOOD THAN IT TOOK ME TO MAKE THIS
+        #I realize now that this would be way easier using lists but I'm retarded (I'll probably fix this when I have the time)
+        #calculations for AFAB Standard Deviations and Averages
+        bidel_sd_f, bidel_avg_f = funcs.avg_and_sd_calc(funcs.list_gen(bidel, dataset_f))
+        hipbreadth_sd_f, hipbreadth_avg_f = funcs.avg_and_sd_calc(funcs.list_gen(hipbreadth, dataset_f))
+        waist_sd_f, waist_avg_f = funcs.avg_and_sd_calc(funcs.list_gen(waist, dataset_f))
+        hipcirc_sd_f, hipcirc_avg_f = funcs.avg_and_sd_calc(funcs.list_gen(hipcirc, dataset_f))
+        height_sd_f, height_avg_f = funcs.avg_and_sd_calc(funcs.list_gen(height_v, dataset_f))
+        chest_sd_f, chest_avg_f = funcs.avg_and_sd_calc(funcs.list_gen(chest, dataset_f))
+        
+        #calculations for AMAB Standard Deviations and Averages
+        bidel_sd_m, bidel_avg_m = funcs.avg_and_sd_calc(funcs.list_gen(bidel, dataset_m))
+        hipbreadth_sd_m, hipbreadth_avg_m = funcs.avg_and_sd_calc(funcs.list_gen(hipbreadth, dataset_m))
+        waist_sd_m, waist_avg_m = funcs.avg_and_sd_calc(funcs.list_gen(waist, dataset_m))
+        hipcirc_sd_m, hipcirc_avg_m = funcs.avg_and_sd_calc(funcs.list_gen(hipcirc, dataset_m))
+        height_sd_m, height_avg_m = funcs.avg_and_sd_calc(funcs.list_gen(height_v, dataset_m))
+        chest_sd_m, chest_avg_m = funcs.avg_and_sd_calc(funcs.list_gen(chest, dataset_m))
+        
+        #calulations to compare to the average of AGAB
+        if gender == "f":
+            new_bidel = ((bideltoid - bidel_avg_f)/bidel_sd_f)*bidel_sd_m + bidel_avg_m
+            new_hipbreadth = ((hipB - hipbreadth_avg_f)/hipbreadth_sd_f)*hipbreadth_sd_m + hipbreadth_avg_m
+            new_waist = ((waistC - waist_avg_f)/waist_sd_f)*waist_sd_m + waist_avg_m
+            new_hipcirc = ((hipC - hipcirc_avg_f)/hipcirc_sd_f)*hipcirc_sd_m + hipcirc_avg_m
+            new_chest = ((chestC - chest_avg_f)/chest_sd_f)*chest_sd_m + chest_avg_m
+            new_height = ((height - height_avg_f)/height_sd_f)*height_sd_m + height_avg_m
+
+        else:
+            new_bidel = ((bideltoid - bidel_avg_m)/bidel_sd_m)*bidel_sd_f + bidel_avg_f
+            new_hipbreadth = ((hipB - hipbreadth_avg_m)/hipbreadth_sd_f)*hipbreadth_sd_m + hipbreadth_avg_f
+            new_waist = ((waistC - waist_avg_m)/waist_sd_m)*waist_sd_f + waist_avg_f
+            new_hipcirc = ((hipC - hipcirc_avg_m)/hipcirc_sd_m)*hipcirc_sd_f + hipcirc_avg_f
+            new_chest = ((chestC - chest_avg_m)/chest_sd_m)*chest_sd_f + chest_avg_f
+            new_height = ((height - height_avg_m)/height_sd_m)*height_sd_f + height_avg_f
+
+
+
+        if version == '1' and units == "in":
+            new_height_str = f'{int(height/multiplier)//12}ft{round((height/multiplier)%12, 1)}{units} -> {int(new_height/multiplier)//12}ft{round((new_height/multiplier)%12, 1)}{units}'
+        elif version == '1' and units == "cm":
+            new_height_str =  f'{round(height/multiplier, 1)}{units} -> {round(new_height/multiplier, 1)}{units}'
+        elif version == '2' and units == 'cm':
+            new_height_str = f'{round(height*2.54, 1)}{units} -> {round(new_height*2.54, 1)}{units}'
+        else:
+            new_height_str = f'{int(height)//12}ft{round((height)%12, 1)}{units} -> {int(new_height)//12}ft{round((new_height)%12, 1)}{units}'
+
+        new_bidel_str = f'{round(bideltoid/multiplier, 1)}{units} -> {round(new_bidel/multiplier, 1)}{units}'
+        new_hipbreadth_str = f'{round(hipB/multiplier, 1)}{units} -> {round(new_hipbreadth/multiplier, 1)}{units}'
+        new_waist_str = f'{round(waistC/multiplier, 1)}{units} -> {round(new_waist/multiplier, 1)}{units}'
+        new_hipcirc_str = f'{round(hipC/multiplier, 1)}{units} -> {round(new_hipcirc/multiplier, 1)}{units}'
+        new_chest_str = f'{round(chestC/multiplier, 1)}{units} -> {round(new_chest/multiplier, 1)}{units}'
+        display(new_height_str, target="heightn")
+        display(new_bidel_str, target="bidel")
+        display(new_hipbreadth_str, target="hipbr")
+        display(new_waist_str, target="waist")
+        display(new_hipcirc_str, target="hipci")
+        display(new_chest_str, target="chest")
+        
+    </py-script>
+  
+  
+  
+    <div class="container">
+      <h1>What it Could Have Been</h1>
+      <h3>Ever wonder what you would look like if you were born the opposite gender? Now you can find out (kind of). This page takes your measurements from before hrt and tells you what they would have been had you been born opposite your AGAB. <br><br> 
+      It works by finding were you fall on the normal distribution for your AGAB, then calculating what the corresponding value would be opposite your AGAB. For example if you have a 18 inch bideltoid shoulder breadth as an AMAB (adult, pre hrt), this would put you on the 5th percentile and your corresponding value if you were AFAB would be 16 inches.
+      </h3>
+      <div class="row">
+        <div class="column left">
+
+          <h2>Input measurements</h2>
+          <p>Enter your values here. For units enter either 'in' or 'cm', entering anything else will cause an error. For version enter either '1' or '2', again, entering anything else causes an error<br><br>
+  
+            <input type="text" id="height" placeholder="Height"></input><br><br>
+            <input type="text" id="bideltoid"placeholder="Bideltoid Shoulder Breadth"></input><br><br>
+            <input type="text" id="hipB"placeholder="Hip breadth"></input><br><br>
+            <input type="text" id="waistC" placeholder="Waist Circumference"></input><br><br>
+            <input type="text" id="hipC" placeholder="Hip Circumference"></input><br><br>
+            <input type="text" id="chestC" placeholder="Chest Circumference"></input><br><br>
+
+            <label class="small1">
+              <input type="text" id="unitsincm" placeholder="Units (in/cm)"></input>
+            </label>
+            <label class="small2">
+              <input type="text" id="version12" placeholder="ANSUR version (1/2)"></input>
+            </label>
+            <label class="small3">
+              <input type="text" id="AGAB" placeholder="AGAB (f/m)"></input>
+            </label>
+            
+            <br><br>
+            <button id="test" type="button" onclick = "clearcontent('heightn'); clearcontent('bidel'); clearcontent('hipbr'); clearcontent('waist'); clearcontent('chest'); clearcontent('hipci')" py-onClick="dis()">Click to Calculate</button>
+            <br>
+        </div>
+
+        <div class="column right">
+          <table class="table table-bordered table-hover table-condensed">
+            <thead><tr>
+            <th title="Field #1">Measurements</th>
+            <th title="Field #2">New Values</th>
+            </tr></thead>
+
+            <tbody>
+            
+            <tr>
+            <td>Height</td>
+            <td><div id="heightn"></div></td>
+            </tr>
+
+            <tr>
+            <td>Bideltoid Shoulder Breadth</td>
+            <td><div id="bidel"></div></td>
+            </tr>
+
+            <tr>
+            <td>Hip Breadth</td>
+            <td><div id="hipbr"></div></td>
+            </tr>
+
+            <tr>
+            <td>Waist Circumference</td>
+            <td><div id="waist"></div></td>
+            </tr>
+
+            <tr>
+            <td>Hip Circumference</td>
+            <td><div id="hipci"></div></td>
+            </tr>
+
+            <tr>
+            <td>Chest Circumference</td>
+            <td><div id="chest"></div></td>
+            </tr>
+
+            </tbody></table>
+        </div>
+      </div>
+    </div>
+  
+  
+  <!-- 
+  targets (start - goal):
+  
+  waist 28 - 28
+  
+  hip circ 38 - 42.5
+  hip breadth 14.5 - 15.5
+  
+  shoulder circ 43 - 41.5
+  bideltoid shoulder 18 - 17
+  
+  underbust 32.5 - 32
+  -->
+  
+  
+  </body>
+    
+  </html>
+  

@@ -19,7 +19,7 @@ def cords_gen(measurement1, measurement2, dataset):
 
 def list_gen(measurement, dataset):
     list1 = []
-    with open (dataset) as ansur:
+    with open (dataset, encoding='cp1252') as ansur:
         csvfile = csv.reader(ansur)
         measurements = next(csvfile)
         loc = measurements.index(measurement)
@@ -120,9 +120,9 @@ def dict_gen(measurement1, measurement2, dataset):
         loc1 = measurements.index(measurement1)
         loc2 = measurements.index(measurement2)
         for row in csvfile:
-            if dataset == 'ansur2_female.csv':
+            if 'female' in dataset:
                 data['gender'].append('f')
-            elif dataset == 'ansur2_male.csv':
+            elif 'male' in dataset:
                 data['gender'].append('m')
             else:
                 data['gender'].append('n')

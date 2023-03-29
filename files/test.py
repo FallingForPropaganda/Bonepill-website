@@ -1,12 +1,12 @@
 import tt
 import matplotlib.pyplot as plt
 
-genders_to_show = 'f'                             
+genders_to_show = 'fm'                             
 units = 'in'                                     
 input_x = 75
 input_y = 27.5
-measurement_x = 'height'
-measurement_y = 'waist circumference'
+measurement_x = 'Height'
+measurement_y = 'Waist Circumference'
 
 fig = tt.grapher(genders_to_show, units, input_x, input_y, measurement_x, measurement_y)
 fig.set_figheight(8)  

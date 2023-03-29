@@ -15,19 +15,19 @@ import scipy.stats as st
 #input variables
 genders_to_show = 'mf'                             
 units = 'in'                                     
-input_x = 71
-input_y = 14.5
-measurement_x = 'Height'
-measurement_y = 'Hip Breadth'
+input_x = 14.5
+input_y = 11
+measurement_x = 'HIP_BRTH'
+measurement_y = 'WAIST_BRTH_OMPHALION'
 
 #finds the csv value for each display title
-measurement1 = funcs.linker(measurement_x)             
-measurement2 = funcs.linker(measurement_y)                    
+measurement1 = measurement_x             
+measurement2 = measurement_y                   
 
 #generates a dictionary in the format {gender, measurement 1, measurement 2}, then turns it into a pandas dataframe
 #also has the option to do one or both genders
-dataf = funcs.dict_gen(measurement1, measurement2, "ansur2_female.csv")
-datam = funcs.dict_gen(measurement1, measurement2, "ansur2_male.csv")
+dataf = funcs.dict_gen(measurement1, measurement2, "ansur1_female.csv")
+datam = funcs.dict_gen(measurement1, measurement2, "ansur1_male.csv")
 
 #unit conversions, this is some weird ass mf code
 data_list = dataf, datam
