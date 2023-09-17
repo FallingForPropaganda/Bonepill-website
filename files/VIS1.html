@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+I fucking suck at making websites so everything here is hanging together with duck tape and nails, this is the first time I've done anything in html since high school
+
+I legit only know how half of this works
+
+If you wonder why I did something one way instead of the other it's probably because I don't know how to do it properly
+
+Anyway stop looking at my shitty code
+-->
+<head>
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/releases/2023.03.1/pyscript.js"></script>
+  <meta charset="UTF-8">
+  <title>Bonepill</title>
+  <style>
+    body {
+      background-color:#1e1e1e;
+      font-family: 'Inconsolata', monospace;
+      color: #d4d4d4;
+      font-weight: 200;
+    }
+    
+    .container {
+      background-color:#1e1e1e;
+      width: 1280px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    
+    h1 {
+      text-align: center;
+      font-weight: 200;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 200;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 200;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .column {
+      float: left;
+      padding: 12px;
+    }
+
+    .left {
+      width: 25%;
+    }
+
+    .right {
+      width: 75%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    a:link, a:visited {
+      color: #aaaaaa;
+      background-color: transparent;
+      text-decoration: none;
+      text-decoration: underline;
+    }
+
+    a:hover, a:active {
+      color: #838383;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+
+    input:focus{
+      background-color:#353535;
+      border: 1px solid #d4d4d4;
+      outline: none;
+    }
+    
+    input{
+      width: 300px;
+      background-color:#1e1e1e;
+      border: 1px solid #d4d4d4;
+      color: #d4d4d4;
+      right: 100%;
+      float: right;
+      padding: 2px 2px;
+      font-size: 15px
+    }
+
+    button{
+      width: 300px;
+      background-color:#1e1e1e;
+      border: 1px solid #d4d4d4;
+      color: #d4d4d4;
+      float: right
+    }
+    button:hover{
+      background-color:#353535;
+      border: 1px solid #d4d4d4;
+      outline: none;
+    }
+
+</style>
+      </style>
+
+  <py-config>
+    packages = ["matplotlib","scipy", "seaborn", 'numpy']
+    [[fetch]]
+      files = [ 'ttvs1.py', 'ansur_functions.py', 'ansur1_female.csv', 'ansur1_male.csv', 'layervs1.py']
+</py-config>
+
+<script>
+  function clearcontent(elementID) {
+      document.getElementById(elementID).innerHTML = "";
+  }
+</script>
+
+</head>
+
+
+
+<body>
+
+  <py-script>
+
+    from pyodide import create_proxy
+    from js import console
+    import layervs1                             
+    import matplotlib as plt
+    plt.rcParams.update({'figure.max_open_warning': 0})
+
+    x= 0
+    y = 0
+    mx = 'Stature (Standing Height)'
+    my = 'Bideltoid Breadth'
+    g = 'mf'
+    u = 'in'
+    display(layervs1.layer(mx, my, x, y, g, u), target = "graph-area", append=False)
+
+    def dis():
+    
+      x = Element('ix').element.value
+      if len(x) == 0:
+        x=float(0)
+      x = float(x)
+      
+      y = Element('iy').element.value
+      if len(y) == 0:
+        y=float(0)
+      y = float(y)
+
+      mx = str(Element('mx').element.value)
+      my = str(Element('my').element.value)
+
+      g = str(Element('gender').element.value)
+      if len(g) == 0:
+        g='mf'
+
+      u = str(Element('units').element.value)
+      if len(u) == 0:
+        u = 'in'
+
+      g = g.lower()
+      u = u.lower()
+
+      display(layervs1.layer(mx, my, x, y, g, u), target = "graph-area")
+  </py-script>
+
+
+
+  <div class="container">
+    <h1>ANSUR 1 Anthropometric Measurements, 2d Visualizer
+      <h3>
+        You know what it does, don't give yourself BDD. Measurements go in the first 2 input fields, values for those two measurements go in the neext two, and you can chose which genders to show and which units to use in the last two. Runs on ANSUR 1 data (circa 1988.)
+      </h3>
+    <div class="row">
+
+      
+      <div class="column left">
+        <h2>Input measurements</h2>
+        <p>Make sure you have the spelling right, if you mispell something the chart won't show.<br><br>TIP: Always click on the drop down of the measurement you want to use, that way you can guarantee that it is spelled right.<br><br>
+
+          <datalist id="bonepillmeasurements"> 
+            <option value="Abdominal Extension Depth, Sitting">
+            <option value="Acromial Height">
+            <option value="Acromial Height, Sitting">
+            <option value="Acromion-Radiale Length">
+            <option value="Ankle Circumference">
+            <option value="Axilla Height">
+            <option value="Axillary Arm Circumference">
+            <option value="Foot Circumference">
+            <option value="Ball of Foot Length">
+            <option value="Biacromial Breadth">
+            <option value="Biceps Circumference, Flexed">
+            <option value="Bideltoid Breadth">
+            <option value="Bimalleolar Breadth">
+            <option value="Bispinous Breadth">
+            <option value="Bitragion Chin Arc">
+            <option value="Bitragion Coronal Arc">
+            <option value="Bitragion Crinion Arc">
+            <option value="Bitragion Frontal Arc">
+            <option value="Bitragion Submandibular Arc">
+            <option value="Bitragion Subnasale Arc">
+            <option value="Bizygomatic Breadth">
+            <option value="Bustpoint to Bustpoint Breadth (THELION BREADTH)">
+            <option value="Buttock Cirucmference (Hip Circumference)">
+            <option value="Buttock Depth">
+            <option value="Buttock Height">
+            <option value="Buttock-Knee Length">
+            <option value="Buttock-Popliteal Length">
+            <option value="Calf Circumference">
+            <option value="Calf Height">
+            <option value="Cervicale Height">
+            <option value="Cervicale Height, Sitting">
+            <option value="Chest Breadth">
+            <option value="Chest Circumference">
+            <option value="Chest Circumference at Scye">
+            <option value="Chest Circumference Below Breast (Underbust)">
+            <option value="Chest Depth">
+            <option value="Chest Height">
+            <option value="Crotch Height">
+            <option value="Crotch Length (Natural Indentation)">
+            <option value="Crotch Length (Omphalion)">
+            <option value="Crotch Length, Posterior (Natural Indentation)">
+            <option value="Crotch Length, Posterior (Omphalion)">
+            <option value="Ear Breadth">
+            <option value="Ear Length">
+            <option value="Ear Length Above Tragion">
+            <option value="Ear Protrusion">
+            <option value="Elbow Circumference">
+            <option value="Elbow Rest Height">
+            <option value="Eye Height, Sitting">
+            <option value="Foot Breadth (Horizontal)">
+            <option value="Foot Length">
+            <option value="Forearm Cirucmferencce, Flexed">
+            <option value="Forearm-Forearm Breadth">
+            <option value="Forearm-Hand Length">
+            <option value="Functional Leg Breadth">
+            <option value="Gluteal Furrow Height">
+            <option value="Hand Breadth">
+            <option value="Hand Circumference">
+            <option value="Hand Length">
+            <option value="Head Breadth">
+            <option value="Head Cirumference">
+            <option value="Head Length">
+            <option value="Heel Ankle Circumference">
+            <option value="Heel Breadth">
+            <option value="Hip breadth">
+            <option value="Hip breadth, Sitting">
+            <option value="Iliocristale Height">
+            <option value="Interpupillary breadth">
+            <option value="Interscye 1">
+            <option value="Interscye 2">
+            <option value="Knee Circumference">
+            <option value="Knee Height, Midpatella">
+            <option value="Knee Height, Sitting">
+            <option value="Lateral Femoral Epicondyle Height">
+            <option value="Lateral Malleolus Height">
+            <option value="Lower Thight Circumference">
+            <option value="Menton-Sellion Length">
+            <option value="Midshoulder Height, Sitting">
+            <option value="Neck-Bustpoint/Thelion Length">
+            <option value="Neck Circumference">
+            <option value="Neck Circumference, Base">
+            <option value="Neck Height, Lateral">
+            <option value="Overhead Fingertip Reach">
+            <option value="Overhead Fingertip Reach, Extended">
+            <option value="Overhead Fingertip Reach, Sitting">
+            <option value="Popliteal Height">
+            <option value="Radiale-Stylion Length">
+            <option value="Scye Circumference">
+            <option value="Scye Depth">
+            <option value="Shoulder Circumference">
+            <option value="Shoulder-Elbow Length">
+            <option value="Shoulder Length">
+            <option value="Sitting Height">
+            <option value="Sleeve Length: Spine-Elbow">
+            <option value="Sleeve Length: Spine-Scye">
+            <option value="Sleeve Length: Sline-Wrist">
+            <option value="Sleeve Outseam">
+            <option value="Span (Wingspan)">
+            <option value="Stature (Standing Height)">
+            <option value="Strap Length">
+            <option value="Suprasternale Height">
+            <option value="Tenth Rib Height">
+            <option value="Thigh Circumference (Upper thigh)">
+            <option value="Thigh Clearance">
+            <option value="Thumb Breadth">
+            <option value="Thumbtip Reach">
+            <option value="Trochanterion Height">
+            <option value="Vertical Trunk Circumference">
+            <option value="Waisst Back Length (Natural Indentation)">
+            <option value="Waist Back Length (Omphalion)">
+            <option value="Waist Breadth">
+            <option value="Waist Circumference (Natural Indentation)">
+            <option value="Waist Circumference (Omphalion)">
+            <option value="Waist Depth">
+            <option value="Waist Front Length (Natural Indentation)">
+            <option value="Waist Front Length (Omphalion)">
+            <option value="Waist Height (Natural Indentation)">
+            <option value="Waist Height (Omphalion)">
+            <option value="Waist Height, Sitting (Natural Indentation)">
+            <option value="Waist Height, Sitting (Omphalion)">
+            <option value="Waist-Hip Length">
+            <option value="Waist (Natural Indenation) - Waist (Omphalion) Length">
+            <option value="Weight">
+            <option value="Wrist-Center of Grip Length">
+            <option value="Wrist Circumference">
+            <option value="Wrist Height">
+            <option value="Wrist Height, Sitting">
+            <option value="Wrist-Index Finger Length">
+            <option value="Wrist-Thumbtip Length">
+            <option value="Wrist-Wall Length">
+            <option value="Wrist-Wall Length, Extended"></option>
+          </datalist>
+
+          <input list="bonepillmeasurements" type="text" id="mx"placeholder="Measurement on X axis"></input><br><br>
+          <input list="bonepillmeasurements" type="text" id="my"placeholder="Measurement on Y axis"></input><br><br>
+          <input type="text" id="ix" placeholder="X value"></input><br><br>
+          <input type="text" id="iy" placeholder="Y value"></input><br><br>
+          <input type="text" id="gender" placeholder="Genders to Show (m/f/mf)"></input><br><br>
+          <input type="text" id="units" placeholder="Units (in/cm)"></input><br><br>
+          <button id="test" type="button" onclick = "clearcontent('graph-area')" py-onClick="dis()">Click to Graph</button>
+          <br>
+      </div>
+      <div class="column right">
+        <div id="graph-area"></div>
+      </div>
+    </div>
+    <h2>
+      <a href="http://tools.openlab.psu.edu/publicData/ANSURII-TR15-007.pdf">Click for the full measurement list</a><br><br>
+      <a href="http://tools.openlab.psu.edu/publicData/ANSURII-TR15-007.pdf">Click for the ANSUR 2 servey info (you can find measurement intructions and info here)</a>
+    </h2>
+  </div>
+
+
+<!-- 
+targets (start - goal):
+
+waist 28 - 28
+
+hip circ 38 - 42.5
+hip breadth 14.5 - 15.5
+
+shoulder circ 43 - 41.5
+bideltoid shoulder 18 - 17
+
+underbust 32.5 - 32
+-->
+
+
+</body>
+  
+</html>

@@ -1,11 +1,7 @@
-import tt
 def layer(mx, my, x, y, g, u):
-      import tt
+      import ttnd2
 
-
-                               
-
-      fig = tt.grapher(g, u, x, y, mx, my)
+      fig = ttnd2.grapher(g, u, x, y, mx, my)
       fig.set_figheight(6) 
       fig.set_figwidth(10.5)  
       return fig

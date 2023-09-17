@@ -1,9 +1,3 @@
-#I made this to generate charts showing compairisons between 2 measurements
-#There are 5 input varilables
-#genders_to_show, which can be a string of 'f', 'm', or 'mf', it toggles which genders to display
-#units, which is either 'cm' or 'in', it is used for unit conversions
-#input_x and input_y, which are inputs for the x and y coordinates that will be graphed 
-#measurement_x and measurement_y, which are the measurements being graphed
 import csv
 import numpy as np
 import pandas as pd
@@ -12,39 +6,45 @@ import seaborn as sns
 import ansur_functions as funcs
 import scipy.stats as st
 
-#input variables
-genders_to_show = 'mf'                             
-units = 'in'                                     
-input_x = 14.5
-input_y = 11
-measurement_x = 'HIP_BRTH'
-measurement_y = 'WAIST_BRTH_OMPHALION'
-
-#finds the csv value for each display title
+measurement_x = 'bmi'
+measurement_y = 'whr'
+units = 'cm'
+genders_to_show = 'mf'    
+input_x = 18.5
+input_y = (14.5/18)
 measurement1 = measurement_x             
-measurement2 = measurement_y                   
+measurement2 = measurement_y      
 
-#generates a dictionary in the format {gender, measurement 1, measurement 2}, then turns it into a pandas dataframe
-#also has the option to do one or both genders
-dataf = funcs.dict_gen(measurement1, measurement2, "ansur1_female.csv")
-datam = funcs.dict_gen(measurement1, measurement2, "ansur1_male.csv")
+
+def bmi_gen(dataset):
+    data = {'gender' : [], 'bmi': [],'whr': []}
+    with open (dataset, encoding='cp1252') as ansur:
+        csvfile = csv.reader(ansur)
+        measurements = next(csvfile)
+        loc1 = measurements.index('weightkg')
+        loc2 = measurements.index('stature')
+        loc3 = measurements.index('bicristalbreadth')
+        loc4 = measurements.index('stature')
+
+        for row in csvfile:
+            if dataset == 'ansur2_female.csv':
+                data['gender'].append('f')
+            elif dataset == 'ansur2_male.csv':
+                data['gender'].append('m')
+            else:
+                data['gender'].append('n')
+            data['bmi'].append(((float(row[loc1]))/10)/((float(row[loc2])/1000)*(float(row[loc2])/1000)))
+            data['whr'].append((float(row[loc3]))/(float(row[loc4])))
+
+    return data
+
+
+dataf = bmi_gen("ansur2_female.csv")
+datam = bmi_gen("ansur2_male.csv")
+
 
 #unit conversions, this is some weird ass mf code
-data_list = dataf, datam
-for data in data_list:
-    measurementlist = [measurement1, measurement2]
-    for measurement in measurementlist:
 
-        #converts from mm to either cm to in
-        new_measurement = []
-        for value in data[measurement]:
-            if units == 'cm':
-                new_measurement.append(value / 10)
-            elif units == 'in':
-                new_measurement.append(value / (10*2.54))
-
-        #replaces the old data with the unit converted data
-        data[measurement] = new_measurement
 
 
 #adds female data to the list if 'f' is in the gender list 
@@ -156,6 +156,8 @@ markerfacecolor="#cc0000",
 markeredgecolor='#cc0000',
 markeredgewidth=1.2)
 
+
+
 #plots the 1sd distrubution for male and female
 if 'm' in genders_to_show:
     plt.fill_between(xm, ymt, ymb, alpha = 0.25, color= "#ADD8E6", linewidth= 0)
@@ -178,6 +180,13 @@ plt.title(title)
 
 #axis titles
 plt.xlabel(measurement_x)
-plt.ylabel(measurement_y)
+plt.ylabel('thigh circ/height')
+
+y = np.linspace(-5,5,100)
+x = 0*y+18.5
+plt.plot(x, y, color= "red", linewidth= .25)
+x1 = 0*y+24.9
+plt.plot(x1, y, color= "red", linewidth= .25)
+
 
 plt.show()
