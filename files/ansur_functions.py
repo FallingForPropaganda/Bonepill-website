@@ -399,7 +399,7 @@ def linker1(measurement):
     'thumbtip reach': 'THUMB-TIP_REACH',
     'trochanterion height': 'TROCHANTERION_HT',
     'vertical trunk circumference': 'VERTICAL_TRUNK_CIRC',
-    'waisst back length (natural indentation)': 'WAIST_NAT_LNTH',
+    'waist back length (natural indentation)': 'WAIST_NAT_LNTH',
     'waist back length (omphalion)': 'WAIST_OMPH_LNTH',
     'waist breadth': 'WAIST_BRTH_OMPHALION',
     'waist circumference (natural indentation)': 'WAIST_CIRC_NATURAL',
