@@ -9,8 +9,8 @@ def grapher (ester, injection_dates, injection_doses):
 
     #turns the string into a list of ints (i stole most of this from a guy who works at spaceX) also makes ester lowercase
     ester1 = ester.lower()
-    dates = list(map(int, [date.strip() for date in injection_dates.split(',') if date.strip() != '']))
-    doses = list(map(int, [dose.strip() for dose in injection_doses.split(',') if dose.strip() != '']))
+    dates = list(map(float, [date.strip() for date in injection_dates.split(',') if date.strip() != '']))
+    doses = list(map(float, [dose.strip() for dose in injection_doses.split(',') if dose.strip() != '']))
 
 
     #function (gun to my head i could not tell you what this does)
