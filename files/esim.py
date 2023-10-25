@@ -1,16 +1,8 @@
-def grapher (ester, injection_dates, injection_doses):
+def grapher (ester, dates, doses, title):
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib as mpl
 
-
-    #user input variables
-
-
-    #turns the string into a list of ints (i stole most of this from a guy who works at spaceX) also makes ester lowercase
-    ester1 = ester.lower()
-    dates = list(map(float, [date.strip() for date in injection_dates.split(',') if date.strip() != '']))
-    doses = list(map(float, [dose.strip() for dose in injection_doses.split(',') if dose.strip() != '']))
 
 
     #function (gun to my head i could not tell you what this does)
@@ -28,7 +20,7 @@ def grapher (ester, injection_dates, injection_doses):
         return result
 
     #returns k and d values for the ester
-    match ester1:
+    match ester:
         case "een":
             values_list = [333.874181, 0.42412968, 0.43452980, 0.15291485]
         case "ev":
@@ -69,17 +61,19 @@ def grapher (ester, injection_dates, injection_doses):
     mpl.rcParams['axes.spines.bottom']= 'false'
 
     mpl.rcParams['font.family']= 'monospace'
-    mpl.rcParams['font.family' ]= ['courier new']
+    mpl.rcParams['font.weight']= '150'
 
 
     #plot stuff
     fig, ax = plt.subplots()
+    ax.xaxis.label.set_color('#d4d4d4')
+    ax.yaxis.label.set_color('#d4d4d4')
 
     plt.plot(t_values, y_values, color= '#FADADD')
 
     plt.fill_between(t_values, y_values, alpha = 0.1, color= "#FADADD", linewidth= 0)
 
-    plt.title('Better Injectable Estradiol Simulator (' +ester+')')
+    plt.title(title)
     plt.xlabel('Days')
     plt.ylabel('Estradiol level (pg/mL)')
     plt.grid(True)

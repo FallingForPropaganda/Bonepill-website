@@ -13,7 +13,7 @@ Anyway stop looking at my shitty code
   <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
   <script defer src="https://pyscript.net/releases/2023.03.1/pyscript.js"></script>
   <meta charset="UTF-8">
-  <title>Bonepill</title>
+  <title>Injectable E sim</title>
   <style>
     body {
       background-color:#1e1e1e;
@@ -41,7 +41,7 @@ Anyway stop looking at my shitty code
     }
 
     h3 {
-      font-size: 15px;
+      font-size: 20px;
       font-weight: 200;
     }
 
@@ -142,8 +142,8 @@ function clearcontent(elementID) {
   plt.rcParams.update({'figure.max_open_warning': 0})
 
   ester = "EEn"
-  dates = '0, 7, 14, 21, 28, 35, 42'
-  doses = '4, 5, 3, 4, 6, 5, 4'
+  dates = str('0, 7, 15, 21, 28, 35, 42')
+  doses = str('4, 5, 3.5, 4, 6, 5, 4')
   display(layeresim.layer(ester, dates, doses), target = "graph-area", append=False)
 
   def dis():
@@ -160,20 +160,20 @@ function clearcontent(elementID) {
 
 
   <div class="container">
-    <h1>injectable e sim
+    <h1>Injectable Estradiol Simulator
       <h3>
-        does stuff
+        Based on <a href="https://www.desmos.com/calculator/yrznshtg3k">work by transfem science</a>, this is an estimate of what your estradiol levels may look like based on your dosing schedule. Please note that there are a ton of factors that may influence levels (such as carrier oil, injection location, concentration, etc) so this should not be taken as gospel, i've seen people with double the levels the sim predicts, and people with half. The original simulator can be found <a href="https://transfemscience.org/misc/injectable-e2-simulator-advanced/">here</a>.
       </h3>
     <div class="row">
 
       
       <div class="column left">
         <h2>Input</h2>
-        <p>dates, doses, ester, ill write something here later<br><br>
+        <p>In the dates section, enter a list of injection dates starting from day 0 and counting up. In the doses section, enter a list of injection doses, with each element in the list being the dose injected on the day that corresponds to the element in the dates list. DATES AND DOSES MUST BE INPUT AS A COMMA SEPERATED LIST, AS SHOWN IN THE PLACEHOLDER. DO NOT USE ANY CHARACTER THAT AREN'T NUMBERS OR COMMAS. For ester, enter the ester of injection<br><br>
 
-          <input type="text" id="dates"placeholder="dates"></input><br><br>
-          <input type="text" id="doses"placeholder="doses"></input><br><br>
-          <input type="text" id="ester" placeholder="ester"></input><br><br>
+          <input type="text" id="dates"placeholder="Dates (0, 7, 15, 21, 28, 35, 42)"></input><br><br>
+          <input type="text" id="doses"placeholder="Doses (4, 5, 3.5, 4, 6, 5, 4)"></input><br><br>
+          <input type="text" id="ester" placeholder="Ester (EV/EC/EEn/EU)"></input><br><br>
           <button id="test" type="button" onclick = "clearcontent('graph-area')" py-onClick="dis()">Click to Graph</button>
           <br>
       </div>
