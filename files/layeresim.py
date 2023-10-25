@@ -9,7 +9,7 @@ def layer(ester, injection_dates, injection_doses):
             fig.set_figwidth(10.5)  
             return fig
       except:
-            fig = esim.grapher('een', [0, 7, 15, 21, 28, 35, 42], [4, 5, 3.5, 4, 6, 5, 4], "if you're seeing this you messed up an input field")
+            fig = esim.grapher('een', [0, 7, 15, 21, 28, 35, 42], [4, 5, 3.5, 4, 6, 5, 4], "IF YOU'RE SEEING THIS YOU MESSED UP AN INPUT FIELD")
             fig.set_figheight(6) 
             fig.set_figwidth(10.5)  
             return fig
