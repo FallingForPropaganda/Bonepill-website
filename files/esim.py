@@ -10,7 +10,7 @@ def grapher (ester, dates, doses, title):
         result = np.zeros(len(t_values))
         for i in range(len(p)):
             for t in t_values:
-                if p[i] < t < p[i] + 100:
+                if p[i] < t < p[i] + 300:
                     term = (q[i] * d / 5) * a * b * (
                         (np.exp((-t + p[i]) * a) / ((a - b) * (a - c))) +
                         (np.exp((-t + p[i]) * c) / ((a - c) * (b - c))) +
