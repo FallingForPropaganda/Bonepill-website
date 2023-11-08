@@ -1,67 +1,61 @@
-def grapher (ester, dates, doses, title):
+def grapher (injections, title):
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib as mpl
 
 
-
-    #function (gun to my head i could not tell you what this does)
-    def total(p, q, a, b, c, d, t_values):
+    '''
+    function (basically the desmos calc but in python)
+    takes the input injection list and a numpy linspace
+    i barely understand how this works but it works so thats good enough for me
+    '''
+    def total(injections, t_values):
         result = np.zeros(len(t_values))
-        for i in range(len(p)):
+        for i in range(len(injections)):
             for t in t_values:
-                if p[i] < t < p[i] + 300:
-                    term = (q[i] * d / 5) * a * b * (
-                        (np.exp((-t + p[i]) * a) / ((a - b) * (a - c))) +
-                        (np.exp((-t + p[i]) * c) / ((a - c) * (b - c))) +
-                        (np.exp((-t + p[i]) * b) * (c - a) / ((a - b) * (a - c) * (b - c)))
+                date = injections[i][0]
+                dose = injections[i][1]
+                a = injections[i][2][0]
+                b = injections[i][2][1]
+                c = injections[i][2][2]
+                d = injections[i][2][3]
+                if date < t < date + 100:
+                    term = (dose * d / 5) * a * b * (
+                        (np.exp((-t + date) * a) / ((a - b) * (a - c))) +
+                        (np.exp((-t + date) * c) / ((a - c) * (b - c))) +
+                        (np.exp((-t + date) * b) * (c - a) / ((a - b) * (a - c) * (b - c)))
                     )
                     result[t_values == t] += term
         return result
 
-    #returns k and d values for the ester
-    match ester:
-        case "een":
-            values_list = [333.874181, 0.42412968, 0.43452980, 0.15291485]
-        case "ev":
-            values_list = [2596.05956, 2.38229125, 0.23345814, 1.37642769]
-        case "ec": 
-            values_list = [1920.89671, 0.10321089, 0.89854779, 0.89359759]
-        case "eu":
-            values_list = [65.9493374, 0.29634323, 4799337.57, 0.03141554]
 
-
-    #ignore this its just for formatting
-    k1 = values_list[1]
-    k2 = values_list[2]  
-    k3 = values_list[3]  
-    d_value = values_list[0]  
-
+    #does stuff
     t_values = np.linspace(0, 200, 1000)
-    y_values = total(dates, doses, k1, k2, k3, d_value, t_values)
+    y_values = total(injections, t_values)
+
 
     #aesthetics
-    mpl.rcParams['axes.facecolor'] = '#1e1e1e'
-    mpl.rcParams['figure.facecolor'] ='#1e1e1e'
-    mpl.rcParams['text.color'] = '#d4d4d4'
+    plt.rcParams.update({
+        'axes.facecolor': '#1e1e1e',
+        'figure.facecolor':'#1e1e1e',
+        'text.color': '#d4d4d4',
+        'axes.titleweight': '500',
 
-    mpl.rcParams['xtick.color'] = '#1e1e1e'
-    mpl.rcParams['xtick.labelcolor'] = '#d4d4d4'
+        'xtick.color': '#1e1e1e',
+        'xtick.labelcolor': '#d4d4d4',
+        'ytick.color': '#1e1e1e',
+        'ytick.labelcolor': '#d4d4d4',
 
-    mpl.rcParams['ytick.color'] = '#1e1e1e'
-    mpl.rcParams['ytick.labelcolor'] = '#d4d4d4'
+        'grid.color': '#d4d4d4',
+        'grid.linewidth': '0.1',
 
-    mpl.rcParams['grid.color'] = '#d4d4d4'
+        'axes.spines.left': 'false',
+        'axes.spines.right':'false',
+        'axes.spines.top':'false',
+        'axes.spines.bottom':'false',
 
-    mpl.rcParams['grid.linewidth'] = '0.1'
-
-    mpl.rcParams['axes.spines.left'] = 'false'
-    mpl.rcParams['axes.spines.right']= 'false'
-    mpl.rcParams['axes.spines.top']= 'false'
-    mpl.rcParams['axes.spines.bottom']= 'false'
-
-    mpl.rcParams['font.family']= 'monospace'
-    mpl.rcParams['font.weight']= '150'
+        'font.family': 'monospace'
+    })
 
 
     #plot stuff
@@ -77,6 +71,6 @@ def grapher (ester, dates, doses, title):
     plt.xlabel('Days')
     plt.ylabel('Estradiol level (pg/mL)')
     plt.grid(True)
-    plt.xlim(-1, dates[(len(dates)-1)]+14)
+    plt.xlim(-1, injections[(len(injections)-1)][0]+7)
     plt.show()
     return fig

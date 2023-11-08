@@ -7,7 +7,7 @@ I legit only know how half of this works
 
 If you wonder why I did something one way instead of the other it's probably because I don't know how to do it properly
 
-Anyway stop looking at my shitty code
+Anyway stop looking at my shitty code i'll fix it later
 -->
 <head>
   <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
@@ -82,21 +82,23 @@ Anyway stop looking at my shitty code
       text-decoration: underline;
     }
 
-    input:focus{
+    textarea:focus{
       background-color:#353535;
       border: 1px solid #d4d4d4;
       outline: none;
     }
     
-    input{
+    textarea{
       width: 300px;
+      height: 200px;
       background-color:#1e1e1e;
       border: 1px solid #d4d4d4;
       color: #d4d4d4;
       right: 100%;
       float: right;
       padding: 2px 2px;
-      font-size: 15px
+      font-size: 15px;
+      word-wrap: break-word;
     }
 
     button{
@@ -141,20 +143,13 @@ function clearcontent(elementID) {
   import matplotlib as plt
   plt.rcParams.update({'figure.max_open_warning': 0})
 
-  ester = "EEn"
-  dates = str('0, 7, 15, 21, 28, 35, 42')
-  doses = str('4, 5, 3.5, 4, 6, 5, 4')
-  display(layeresim.layer(ester, dates, doses), target = "graph-area", append=False)
+  injections = '0/4/EV, 7/4/een, 14/2.5/een, 21/1.5/een, 28/4/ev, 35/4/een, 42/2.5/een, 49/1.5/een'
+  display(layeresim.layer(injections), target = "graph-area", append=False)
 
   def dis():
-  
+    injections = str(Element('injections').element.value)
+    display(layeresim.layer(injections), target = "graph-area")
 
-
-    dates = str(Element('dates').element.value)
-    doses = str(Element('doses').element.value)
-    ester = str(Element('ester').element.value)
-
-    display(layeresim.layer(ester, dates, doses), target = "graph-area")
 </py-script>
 
 
@@ -162,18 +157,19 @@ function clearcontent(elementID) {
   <div class="container">
     <h1>Injectable Estradiol Simulator
       <h3>
-        Based on <a href="https://www.desmos.com/calculator/yrznshtg3k">work by transfem science</a>, this is an estimate of what your estradiol levels may look like based on your dosing schedule. Please note that there are a ton of factors that may influence levels (such as carrier oil, injection location, concentration, etc) so this should not be taken as gospel, i've seen people with double the levels the sim predicts, and people with half. The original simulator can be found <a href="https://transfemscience.org/misc/injectable-e2-simulator-advanced/">here</a>.
+        Based on <a href="https://www.desmos.com/calculator/yrznshtg3k">this desmos calculator</a>, this is an estimate of what your estradiol levels may look like based on your dosing schedule. Please note that there are a ton of factors that may influence levels (such as formulation, injection location, etc) so this should not be taken as gospel, i've seen people with double the levels the sim predicts, and people with half. The original simulator can be found <a href="https://transfemscience.org/misc/injectable-e2-simulator-advanced/">here</a>.
       </h3>
     <div class="row">
 
       
       <div class="column left">
         <h2>Input</h2>
-        <p>In the dates section, enter a list of injection dates starting from day 0 and counting up. In the doses section, enter a list of injection doses, with each element in the list being the dose injected on the day that corresponds to the element in the dates list. DATES AND DOSES MUST BE INPUT AS A COMMA SEPERATED LIST, AS SHOWN IN THE PLACEHOLDER. DO NOT USE ANY CHARACTER THAT AREN'T NUMBERS OR COMMAS. For ester, enter the ester of injection<br><br>
+        <p>Enter your injections as a list of the following format (an example is in the input box)<br><br>
+          
+          [day of injection (counting up from start date, starting at 0)/dose taken on that date/ester injected (een/ev/eu/ec)], repeating
+          <br><br>
 
-          <input type="text" id="dates"placeholder="Dates (0, 7, 15, 21, 28, 35, 42)"></input><br><br>
-          <input type="text" id="doses"placeholder="Doses (4, 5, 3.5, 4, 6, 5, 4)"></input><br><br>
-          <input type="text" id="ester" placeholder="Ester (EV/EC/EEn/EU)"></input><br><br>
+          <textarea id="injections" placeholder="injections in the following format: &#13;&#10;&#13;&#10;0/4/EV, 7/4/een, 14/2.5/een, 21/1.5/een, 28/4/ev, 35/4/een, 42/2.5/een, 49/1.5/een"></textarea></input><br><br><br><br><br><br><br><br><br>
           <button id="test" type="button" onclick = "clearcontent('graph-area')" py-onClick="dis()">Click to Graph</button>
           <br>
       </div>
